@@ -49,10 +49,13 @@ t.add_resource(ec2.SecurityGroup(
 
 ud = Base64(Join('\n', [
     "#!/bin/bash",
-    "sudo yum install --enablerepo=epel -y nodejs",
-    "wget https://raw.githubusercontent.com/szhouchoice/EffectiveDevOpsTemplates/master/helloworld.js -O /home/ec2-user/helloworld.js",
-    "wget https://raw.githubusercontent.com/szhouchoice/EffectiveDevOpsTemplates/master/helloworld.conf -O /etc/init/helloworld.conf",
-    "systemctl start helloworld"
+    "sudo yum -y gcc-c++ make",
+    "curl -sL https://rpm.nodesource.com/setup_11.x | sudo -E bash -",
+    "sudo yum -y install nodejs",
+    "sudo yum -y install wget",
+    "wget https://raw.githubusercontent.com/szhouchoice/EffectiveDevOpsTemplates/master/helloworld.js -O /home/centos/helloworld.js",
+    "wget https://raw.githubusercontent.com/szhouchoice/EffectiveDevOpsTemplates/master/helloworld.service -O /lib/systemd/system/helloworld.service",
+    "service helloworld start "
 ]))
 
 t.add_resource(ec2.Instance(
