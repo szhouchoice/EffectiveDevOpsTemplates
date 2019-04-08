@@ -49,6 +49,8 @@ t.add_resource(ec2.SecurityGroup(
 
 ud = Base64(Join('\n', [
     "#!/bin/bash",
+    "sudo hostnamectl set-hostname test.localdomain",
+    "sudo reboot",
     "sudo yum -y gcc-c++ make",
     "curl -sL https://rpm.nodesource.com/setup_11.x | sudo -E bash -",
     "sudo yum -y install nodejs",
