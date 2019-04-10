@@ -57,8 +57,10 @@ t.add_resource(ec2.SecurityGroup(
 ))
 
 ud = Base64(Join('\n', [ "#!/bin/bash",
-"yum install --enablerepo=epel -y git",
-"yum install --enablerepo=epel -y ansible",
+"curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -",
+"yum install -y nodejs",
+"yum install -y git",
+"amazon-linux-extras install -y ansible2=latest",
 AnsiblePullCmd,
 "echo '*/10 * * * * {}' > /etc/cron.d/ansible-pull".format(AnsiblePullCmd)
 ]))
@@ -66,7 +68,7 @@ AnsiblePullCmd,
 
 t.add_resource(ec2.Instance(
     "instance",
-    ImageId="ami-02fd0b06f06d93dfc",
+    ImageId="ami-04481c741a0311bbb",
     InstanceType="t2.micro",
     SecurityGroups=[Ref("SecurityGroup")],
     KeyName=Ref("KeyPair"),
